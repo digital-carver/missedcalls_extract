@@ -26,10 +26,11 @@ foreach my $elem (@{$tree->[1]}) {
         my $call_info = $elem->[0];
         #Type 3 is missed calls
         if ($call_info->{type} eq "3") {
-            say "Missed from $call_info->{contact_name} ($call_info->{number}) at $call_info->{readable_date}";
-            #Quote the quotes for CSV
-            $call_info->{contact_name} =~ s/"/\\"/g;
-            say STDERR qq|"$call_info->{contact_name}", $call_info->{number}, $call_info->{readable_date}|;
+            say "Missed from $call_info->{contact_name} ($call_info->{number})".
+                            " at $call_info->{readable_date}";
+            # double-pipe seems least likely to occur in Contactname, so delim
+            say STDERR "$call_info->{contact_name} || $call_info->{number} ||".
+                            " $call_info->{readable_date}";
         }
     }
 }
